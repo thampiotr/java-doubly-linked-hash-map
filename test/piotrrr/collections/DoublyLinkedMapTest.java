@@ -104,7 +104,7 @@ public class DoublyLinkedMapTest {
         for (int i = 0; i < testSize; i += 2) {
             map.remove(String.valueOf(i));
         }
-        Assert.assertEquals(testSize/2, map.size());
+        Assert.assertEquals(testSize / 2, map.size());
         for (int i = 0; i < testSize; i += 2) {
             Assert.assertFalse(map.get(String.valueOf(i)).isPresent());
         }
@@ -135,7 +135,7 @@ public class DoublyLinkedMapTest {
         Assert.assertEquals(0, map.size());
 
         map.putBack("sth", 123);
-        Assert.assertEquals(Integer.valueOf(123), map.get("sth").get());
+        Assert.assertEquals(Integer.valueOf(123), map.get("sth").orElseThrow(NoSuchElementException::new));
         Assert.assertEquals(1, map.size());
 
         Iterator<Integer> fwdIt = map.valuesIterator();

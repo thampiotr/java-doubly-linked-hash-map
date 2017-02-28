@@ -6,13 +6,12 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 /**
- * - Only small subset of operations we need.
- * - Not thread safe.
- * TODO:
- * - Concurrent modification detection
- * - TEST TEST TEST
- * @param <K>
- * @param <V>
+ * This is a basic implementation of a doubly-linked hash map, which allows for iteration (over values) in both directions.
+ * Only basic operations, such as get, putBack and putFront are supported. This implementation is NOT thread-safe.
+ * Modifying this map while iterating over it will yield undefined behaviour.
+ *
+ * @param <K> key type
+ * @param <V> value typ
  */
 public class DoublyLinkedMap<K, V> {
     private final HashMap<K, DoublyLinkedList.Node<V>> map = new HashMap<>();
@@ -151,7 +150,7 @@ public class DoublyLinkedMap<K, V> {
             private Node<V> next = null;
             private Node<V> prev = null;
 
-            public Node(V value) {
+            private Node(V value) {
                 this.value = value;
             }
         }
