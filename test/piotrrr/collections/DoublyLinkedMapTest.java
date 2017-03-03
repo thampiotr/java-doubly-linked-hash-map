@@ -155,6 +155,34 @@ public class DoublyLinkedMapTest {
         Assert.assertFalse(map.reverseValuesIterator().hasNext());
     }
 
+    @Test
+    public void overwriting() throws Exception {
+        DoublyLinkedMap<String, Integer> map = new DoublyLinkedMap<>();
+
+        map.putBack("sth", 1);
+        map.putBack("sth", 2);
+        map.putBack("sth", 1);
+        map.putBack("sth", 123);
+        Assert.assertEquals(Integer.valueOf(123), map.get("sth").orElseThrow(NoSuchElementException::new));
+        Assert.assertEquals(1, map.size());
+
+        Iterator<Integer> fwdIt = map.valuesIterator();
+        Assert.assertTrue(fwdIt.hasNext());
+        Assert.assertEquals(Integer.valueOf(123), fwdIt.next());
+        Assert.assertFalse(fwdIt.hasNext());
+
+        Iterator<Integer> revIt = map.reverseValuesIterator();
+        Assert.assertTrue(revIt.hasNext());
+        Assert.assertEquals(Integer.valueOf(123), revIt.next());
+        Assert.assertFalse(revIt.hasNext());
+
+        map.remove("sth");
+        Assert.assertEquals(0, map.size());
+        Assert.assertFalse(map.get("sth").isPresent());
+        Assert.assertFalse(map.valuesIterator().hasNext());
+        Assert.assertFalse(map.reverseValuesIterator().hasNext());
+    }
+
     @Test(expected = NoSuchElementException.class)
     public void throwsExceptionWhenIteratorInvalid() throws Exception {
         DoublyLinkedMap<String, Integer> map = new DoublyLinkedMap<>();

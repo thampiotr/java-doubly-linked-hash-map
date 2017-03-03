@@ -23,14 +23,14 @@ public class DoublyLinkedMap<K, V> {
     }
 
     public Optional<V> putBack(K key, V value) {
-        Optional<V> previous = get(key);
+        Optional<V> previous = remove(key);
         DoublyLinkedList.Node<V> node = list.pushBack(value);
         map.put(key, node);
         return previous;
     }
 
     public Optional<V> putFront(K key, V value) {
-        Optional<V> previous = get(key);
+        Optional<V> previous = remove(key);
         DoublyLinkedList.Node<V> node = list.pushFront(value);
         map.put(key, node);
         return previous;
